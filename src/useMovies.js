@@ -19,8 +19,8 @@ export function useMovies(query) {
           setError("");
 
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
+            `https://www.omdbapi.com/?apikey=${KEY}&s=${encodeURIComponent(query)}`,
+            { signal: controller.signal },
           );
 
           if (!res.ok)
@@ -53,7 +53,7 @@ export function useMovies(query) {
         controller.abort();
       };
     },
-    [query]
+    [query],
   );
 
   return { movies, isLoading, error };
